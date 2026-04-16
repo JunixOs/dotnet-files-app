@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="API SOAP/API SOAP.csproj" />
+  <Project Path="Background Service/Background Service.csproj" Id="6b44fc3d-fb00-48c6-a334-b2950ad3b889" />
+  <Project Path="Console App/Console App.vbproj" Id="5b4308a2-a546-407b-aa13-2ee9c3389819" />
+  <Project Path="Construccion-II - App-API-Rest/Construccion-II - App-API-Rest.csproj" />
+  <Project Path="Desktop App/Desktop App.csproj" />
+  <Project Path="Mobile App - dotNET MAUI/Mobile App - dotNET MAUI.csproj" />
+  <Project Path="Web App/Web App.csproj" />
+</Solution>

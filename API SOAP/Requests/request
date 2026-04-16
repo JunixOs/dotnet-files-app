@@ -1,0 +1,15 @@
+<!-- Formato XML para hacer un POST a la API SOAP -->
+<!-- En "Headers" Colocar -->
+<!-- 
+    Content-Type: text/xml; charset=utf-8
+    SOAPAction: http://tempuri.org/IHomeController/Index
+-->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                    xmlns:tem="http://tempuri.org/">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <tem:Index>
+            <tem:name>Web</tem:name>
+        </tem:Index>
+    </soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,124 @@
+@page
+@model SaveFilmPageModel
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Films App - Add Film</title>
+    
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    </head>
+    <body class="bg-light">
+        <div class="container mt-5">
+            <h2 class="mb-4 text-center">Añadir Pelicula</h2>
+
+            @if(!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger text-center">
+                    @Model.ErrorMessage
+                </div>
+            }
+            else
+            {
+                <div class="card shadow-sm p-3">
+                    <form method="post">
+                        
+                        <div class="form-group">
+                            @* Asi puedes mapear los inputs a una clase para su envio por POST *@
+                            @* La clase debe tener "BindProperty" *@
+                            <label asp-for="FilmModel.Name"></label>
+                            <input asp-for="FilmModel.Name" class="form-control" placeholder="Matrix" />
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label asp-for="FilmModel.PremierDate"></label>
+                            <input asp-for="FilmModel.PremierDate" id="premierDate" class="form-control" />
+                        </div>
+
+                        @* Selector de actores *@
+                        <div class="form-group mt-3">
+                            <label>Actores</label>
+
+                            <select id="actorSelect" class="form-control">
+                                <option value="">-- Seleccionar actor --</option>
+                                @foreach(var actor in Model.ActorModels)
+                                {
+                                    <option value="@actor.Id">@actor.LastName, @actor.FirstName</option>
+                                }
+                            </select>
+
+                            <div id="selectedActors" class="mt-2"></div>
+                        </div>
+
+                        @* Contenedor oculto para enviar actores *@
+                        <div id="hiddenActors"></div>
+
+                        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </body>
+    <script>
+        const selectedActors = [];
+
+        const actorSelect = document.getElementById("actorSelect");
+        const selectedContainer = document.getElementById("selectedActors");
+        const hiddenContainer = document.getElementById("hiddenActors");
+
+        actorSelect.addEventListener("change", function () {
+            const id = this.value;
+            const text = this.options[this.selectedIndex].text;
+
+            if (!id) return;
+
+            // Evitar duplicados
+            if (selectedActors.find(a => a.id === id)) {
+                this.value = "";
+                return;
+            }
+
+            selectedActors.push({ id, text });
+            renderActors();
+            this.value = "";
+        });
+
+        function renderActors() {
+            selectedContainer.innerHTML = "";
+            hiddenContainer.innerHTML = "";
+
+            selectedActors.forEach((actor, index) => {
+
+                // Mostrar actor seleccionado
+                const badge = document.createElement("span");
+                badge.className = "badge bg-primary me-2";
+                badge.style.cursor = "pointer";
+                badge.innerText = actor.text + " ✖";
+
+                badge.onclick = () => {
+                    selectedActors.splice(index, 1);
+                    renderActors();
+                };
+
+                selectedContainer.appendChild(badge);
+
+                // Input oculto para POST
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = `Film.ActorModels[${index}].Id`;
+                input.value = actor.id;
+
+                hiddenContainer.appendChild(input);
+            });
+        }
+    </script>
+    <script>
+        flatpickr("#premierDate", {
+            dateFormat: "Y-m-d",   // importante para .NET
+            allowInput: true       // permite escribir
+        });
+    </script>
+</html>

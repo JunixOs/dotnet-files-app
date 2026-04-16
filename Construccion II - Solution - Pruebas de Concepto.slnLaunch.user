@@ -1,0 +1,58 @@
+[
+  {
+    "Name": "WebApp-API Profile",
+    "Projects": [
+      {
+        "Path": "Construccion-II - App-API-Rest\\Construccion-II - App-API-Rest.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "Web App\\Web App.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  },
+  {
+    "Name": "DesktopApp-API Profile",
+    "Projects": [
+      {
+        "Path": "Construccion-II - App-API-Rest\\Construccion-II - App-API-Rest.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "Desktop App\\Desktop App.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  },
+  {
+    "Name": "MobileApp-API Profile",
+    "Projects": [
+      {
+        "Path": "Construccion-II - App-API-Rest\\Construccion-II - App-API-Rest.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  },
+  {
+    "Name": "Init All",
+    "Projects": [
+      {
+        "Path": "Construccion-II - App-API-Rest\\Construccion-II - App-API-Rest.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "Desktop App\\Desktop App.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "Web App\\Web App.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "Background Service\\Background Service.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  }
+]

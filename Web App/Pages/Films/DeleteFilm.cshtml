@@ -1,0 +1,64 @@
+@page "/films/delete/{id}"
+@model DeleteFilmPageModel
+
+@{
+    ViewData["Title"] = "Eliminar Film";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <h2 class="text-center text-danger mb-4">
+                Eliminar Película
+            </h2>
+
+            @if (Model.ErrorMessage != null)
+            {
+                <div class="alert alert-danger text-center">
+                    @Model.ErrorMessage
+                </div>
+            }
+
+            <div class="card shadow-sm p-4">
+
+                <div class="alert alert-warning text-center">
+                    ¿Estás seguro que deseas eliminar este film?
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Id</label>
+                    <input class="form-control" value="@Model.FilmModel.Id" disabled />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input class="form-control" value="@Model.FilmModel.Name" disabled />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha de estreno</label>
+                    <input class="form-control"
+                           value="@Model.FilmModel.PremierDate.ToString("yyyy-MM-dd")"
+                           disabled />
+                </div>
+
+                <form method="post">
+                    <div class="d-flex justify-content-between mt-4">
+
+                        <a asp-page="/Films/Index" class="btn btn-secondary">
+                            Cancelar
+                        </a>
+
+                        <button type="submit" class="btn btn-danger">
+                            Eliminar
+                        </button>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

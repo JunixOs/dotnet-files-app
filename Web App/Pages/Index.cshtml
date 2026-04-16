@@ -1,0 +1,99 @@
+﻿@page
+@using Web_App.Models
+@model IndexModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Films App</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    .movie-card {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .movie-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .actor-badge {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+        border-radius: 20px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+</style>
+<body class="bg-light">
+
+    <div class="container mt-5">
+
+        <h2 class="mb-4 text-center">Peliculas</h2>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger text-center">
+                @Model.ErrorMessage
+            </div>
+        }
+        else if(Model.ListFilmModel is null || Model.ListFilmModel.Count == 0)
+        {
+            <div class="alert alert-info" role="alert">
+                No se encontraron peliculas para mostrar
+            </div>
+        }
+        else
+        {
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach (var movie in Model.ListFilmModel ?? new List<FilmModel>())
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 rounded-4 movie-card">
+
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold mb-1">@movie.Name</h5>
+                                <small class="text-muted">
+                                    @movie.PremierDate.ToString("yyyy-MM-dd")
+                                </small>
+                            </div>
+
+                            <div class="px-3 pb-2">
+                                <div class="d-flex flex-wrap gap-2">
+                                    @foreach (var actor in movie.ActorModels ?? new List<ActorModel>())
+                                    {
+                                        <span class="badge bg-light text-dark border actor-badge">
+                                            @actor.FirstName @actor.LastName
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-white border-0 d-flex justify-content-between">
+                                <a asp-page="/Films/ViewFilm" asp-route-id="@movie.Id" class="btn btn-sm btn-outline-primary">Ver</a>
+                                <a asp-page="/Films/EditFilm" asp-route-id="@movie.Id" class="btn btn-sm btn-outline-warning">Editar</a>
+                                <a href="#" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+
+</body>
+</html>

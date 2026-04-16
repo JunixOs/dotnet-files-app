@@ -1,0 +1,6 @@
+@Construccion_II___App_API_Rest_HostAddress = http://localhost:5007
+
+GET {{Construccion_II___App_API_Rest_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
